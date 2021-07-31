@@ -47,7 +47,6 @@ router.get(`/color/:id`, function (req, res) {
 	console.log(`parameters`, colorId)
 	const query = `SELECT * FROM colors WHERE id = ${colorId} `
 
-
 	dbConnection.query(query, (err, result) => {
 		console.log(`result`, result)
 
