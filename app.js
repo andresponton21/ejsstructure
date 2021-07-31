@@ -5,6 +5,8 @@ const router = express.Router()
 const bodyParser = require("body-parser")
 const mysql = require("mysql")
 const config = require("./config")
+require('dotenv').config()
+
 
 
 app.use(express.static("public"))

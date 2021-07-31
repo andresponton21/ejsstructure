@@ -1,16 +1,19 @@
+
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV.trim()}` })
+
 const config = {}
+config.serverPort = process.env.SERVER_PORT
+
+console.log(`environment==>`, process.env.NODE_ENV.trim())
+console.log(`server port==>`, process.env.SERVER_PORT)
 
 
-let environment = process.env.NODE_ENV.trim()
-console.log(`environment==>`, environment)
-
-config.serverPort = 8080
 config.dbConfig = {
-    user: "root",
-    password: "root",
-    host: "localhost",
-    port: 3306,
-    database: environment === "development" ? "nodejs" : "nodejs-prod"
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DB_NAME
 }
 
 

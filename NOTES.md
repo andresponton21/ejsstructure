@@ -11,6 +11,9 @@ npm  i body-parser
 npm i mysql
 
 npm i nodemon
+
+npm i dotenv
+
 install ejs extension in vs code
 
 ejs documentation
