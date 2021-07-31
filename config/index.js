@@ -1,6 +1,8 @@
 const config = {}
 
-console.log(`Environment----->`, process.env.NODE_ENV)
+
+let environment = process.env.NODE_ENV.trim()
+console.log(`environment==>`, environment)
 
 config.serverPort = 8080
 config.dbConfig = {
@@ -8,7 +10,9 @@ config.dbConfig = {
     password: "root",
     host: "localhost",
     port: 3306,
-    database: "nodejs"
+    database: environment === "development" ? "nodejs" : "nodejs-prod"
 }
 
+
+console.log(`db name======>`, config.dbConfig.database)
 module.exports = config
