@@ -15,21 +15,55 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
-// const bdConnection = mysql.createConnection(config.dbConfig)
-// bdConnection.connect((err) => {
-//     if (err) {
-//         throw err
-//     }
+const dbConnection = mysql.createConnection(config.dbConfig)
+dbConnection.connect((err) => {
+	if (err) {
+		throw err
+	}
 
-//     console.log(`Connected to DB`)
-// })
+	console.log(`Connected to DB`)
+})
 
 //render index.ejs
 router.get(`/`, function (req, res) {
-    res.render("index")
+	const query = `SELECT * FROM colors ORDER BY id ASC`
+
+
+	dbConnection.query(query, (err, result) => {
+		console.log(`result`, result)
+
+		if (err) { throw err }
+
+		res.render("index", { colors: result })
+	})
+
+
+})
+
+
+router.get(`/color/:id`, function (req, res) {
+
+	const colorId = req.params.id
+	console.log(`parameters`, colorId)
+	const query = `SELECT * FROM colors WHERE id = ${colorId} `
+
+
+	dbConnection.query(query, (err, result) => {
+		console.log(`result`, result)
+
+		if (err) { throw err }
+
+		res.render("color", {
+			color: result[0]
+		})
+	})
+
+
+
+
 })
 
 app.use(`/`, router)
 app.listen(config.serverPort, () => {
-    console.log(`express server at 8080`)
+	console.log(`express server at 8080`)
 })
