@@ -1,9 +1,9 @@
 <%- include('partials/header.ejs') -%>
 
-	<h1>Home 2</h1>
+	<main>
 
-	<!-- <a href="/add-task"><button>Add task</button></a> -->
-	<%- include('partials/add-task.ejs') -%>
+		<!-- <a href="/add-task"><button>Add task</button></a> -->
+
 
 		<%if(tasks.length> 0){%>
 			<ul>
@@ -49,68 +49,68 @@
 
 				<%}%>
 
+	</main>
 
-
-					<%- include('partials/footer.ejs') -%>
-
-
-
-
-
-
-						<script>
-							window.addEventListener("DOMContentLoaded", function () {
-								console.log(`loaded`)
-
-								const deleteHandler = (event) => {
-									console.log(`clicked`, event.currentTarget)
-									console.log(`clicked`, event.currentTarget.closest(".itemrow").id)
-
-									fetch("/delete-task", {
-										method: "post",
-										headers: {
-											Accept: "application/json",
-											"Content-Type": "application/json"
-										},
-										body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id })
-									}).then(res => {
-
-										console.log(`deleted`,)
-										window.location.reload()
-
-									}).catch((err) => console.log("err", err))
-
-								}
-
-								const checkHandler = (event) => {
-									let check = event.currentTarget.checked ? 1 : 0
-
-									fetch("/check-task", {
-										method: "post",
-										headers: {
-											Accept: "application/json",
-											"Content-Type": "application/json"
-										},
-										body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id, checked: check })
-									}).then(res => {
-										window.location.reload()
-									}).catch((err) => console.log("err", err))
-
-								}
-
-
-								Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
-									btn.addEventListener("click", deleteHandler, false)
-
-								})
-
-								Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
-									checkbox.addEventListener("click", checkHandler, false)
-								})
+	<%- include('partials/footer.ejs') -%>
 
 
 
 
-							})
 
-						</script>
+
+		<script>
+			window.addEventListener("DOMContentLoaded", function () {
+				console.log(`loaded`)
+
+				const deleteHandler = (event) => {
+					console.log(`clicked`, event.currentTarget)
+					console.log(`clicked`, event.currentTarget.closest(".itemrow").id)
+
+					fetch("/delete-task", {
+						method: "post",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id })
+					}).then(res => {
+
+						console.log(`deleted`,)
+						window.location.reload()
+
+					}).catch((err) => console.log("err", err))
+
+				}
+
+				const checkHandler = (event) => {
+					let check = event.currentTarget.checked ? 1 : 0
+
+					fetch("/check-task", {
+						method: "post",
+						headers: {
+							Accept: "application/json",
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id, checked: check })
+					}).then(res => {
+						window.location.reload()
+					}).catch((err) => console.log("err", err))
+
+				}
+
+
+				Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
+					btn.addEventListener("click", deleteHandler, false)
+
+				})
+
+				Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
+					checkbox.addEventListener("click", checkHandler, false)
+				})
+
+
+
+
+			})
+
+		</script>
