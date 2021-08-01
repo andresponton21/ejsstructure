@@ -81,7 +81,9 @@ router.post('/delete-color', function (req, res) {
 })
 
 router.post(`/add-color-submit`, function (req, res) {
-	const query = `INSERT INTO colors (name) VALUES ("${req.body.name}")`
+
+	console.log("req BODY *********", req.body.checked)
+	const query = `INSERT INTO colors (name, checked) VALUES ("${req.body.name}", 0)`
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
@@ -91,6 +93,21 @@ router.post(`/add-color-submit`, function (req, res) {
 		res.end()
 	})
 })
+
+router.post(`/check-color`, function (req, res) {
+
+	console.log("req BODY *********", req.body.checked)
+	const query = `UPDATE colors SET checked = "${req.body.checked}" WHERE id = ${req.body.id}`
+	dbConnection.query(query, (err, result) => {
+		if (err) {
+			throw err
+		}
+		res.writeHead(302)
+		res.end()
+	})
+})
+
+
 
 router.post('/update-color-submit', function (req, res) {
 	console.log("req", req.body.id)

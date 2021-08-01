@@ -8,17 +8,29 @@
 		<%if(colors.length> 0){%>
 			<ul>
 				<% colors.forEach(color=> { %>
-					<li id="<%= color.id %>"><span style="color:<%= color.name %>;">o<a href="/color/<%= color.id %>">
-								<%= color.name %>
-							</a></span>
+					<li id="<%= color.id %>">
+						<%= color.id %>
+							<%= color.name %>
+								<%= color.checked %>
 
-						<form action="/update-color-submit" method="post">
-							<input type="text" value="<%= color.id %>" name="id" />
-							<input type="text" value="<%= color.name %>" name="name" placeholder="<%= color.name %>" />
-							<input type="submit" value="Update" />
-						</form>
-						<button class="edit">edit</button>
-						<button class="delete">x</button>
+									<%= (color.checked==1) ? 'true' : 'false' %>
+
+										<input class="checkbox" <%=(color.checked==1) ? 'checked="true"' : '' %>
+										type="checkbox" name="<%=color.name %>" id="check-<%= color.id %>">
+
+												<span style="color:<%= color.name %>;">o<a
+														href="/color/<%= color.id %>">
+														<%= color.name %>
+													</a></span>
+
+												<form action="/update-color-submit" method="post">
+													<input type="text" value="<%= color.id %>" name="id" />
+													<input type="text" value="<%= color.name %>" name="name"
+														placeholder="<%= color.name %>" />
+													<input type="submit" value="Update" />
+												</form>
+												<button class="edit">edit</button>
+												<button class="delete">x</button>
 					</li>
 					<% }) %>
 
@@ -41,6 +53,9 @@
 							window.addEventListener("DOMContentLoaded", function () {
 								console.log(`loaded`)
 
+
+
+
 								const clickHandler = (event) => {
 									console.log(`clicked`, event.currentTarget)
 									console.log(`clicked`, event.currentTarget.parentElement.id)
@@ -61,10 +76,55 @@
 
 								}
 
+								const checkHandler = (event) => {
+									event.currentTarget.classList.toggle("mystyle")
+									let active = false
+
+									if (event.currentTarget.classList.contains("mystyle")) {
+										active = true
+									}
+									console.log(`clicked`, event.currentTarget)
+									console.log(`clicked`, event.currentTarget.parentElement.id)
+
+									// let check = event.currentTarget.checked ? 1 : 0
+									let path = event.currentTarget.checked ? "check" : "uncheck"
+									let check = (path == "check") ? 1 : 0
+
+
+
+									fetch("/check-color", {
+										method: "post",
+										headers: {
+											Accept: "application/json",
+											"Content-Type": "application/json"
+										},
+										body: JSON.stringify({ id: event.currentTarget.parentElement.id, checked: check })
+									}).then(res => {
+
+										console.log(`Action checking`)
+										window.location.reload()
+
+
+
+									}).catch((err) => console.log("err", err))
+
+								}
+
+
+
+
 								Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
 									btn.addEventListener("click", clickHandler, false)
 
 								})
+
+
+								Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
+									checkbox.addEventListener("click", checkHandler, false)
+								})
+
+
+
 
 							})
 
