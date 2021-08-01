@@ -62,24 +62,9 @@ router.get(`/color/:id`, function (req, res) {
 	})
 })
 
-router.get(`/add-color`, function (req, res) {
-	res.render("add-color")
-})
-
-router.post(`/add-color-bubmit`, function (req, res) {
-	const query = `INSER INTO colors (name) VALUES (${req.body.name})`
-	dbConnection.query(query, (err, result) => {
-		if (err) {
-			throw err
-		}
-
-		res.writeHead(302)
-		res.end()
-	})
-})
-
-
-
+// router.get(`/add-color`, function (req, res) {
+// 	res.render("add-color")
+// })
 
 router.post('/delete-color', function (req, res) {
 	console.log("req", req.body.id)
@@ -95,6 +80,31 @@ router.post('/delete-color', function (req, res) {
 	})
 })
 
+router.post(`/add-color-submit`, function (req, res) {
+	const query = `INSERT INTO colors (name) VALUES ("${req.body.name}")`
+	dbConnection.query(query, (err, result) => {
+		if (err) {
+			throw err
+		}
+
+		res.writeHead(302, { Location: "/" })
+		res.end()
+	})
+})
+
+router.post('/update-color-submit', function (req, res) {
+	console.log("req", req.body.id)
+
+	const query = `UPDATE colors SET name = "${req.body.name}" WHERE id = ${req.body.id}`
+	dbConnection.query(query, (err, result) => {
+		if (err) {
+			throw err
+		}
+
+		res.writeHead(302, { Location: "/" })
+		res.end()
+	})
+})
 
 
 app.use(`/`, router)

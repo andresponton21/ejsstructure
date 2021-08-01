@@ -2,61 +2,70 @@
 
 	<h1>Home 2</h1>
 
-	<a href="/add-color"><button>Add color</button></a>
-	<%if(colors.length> 0){%>
-		<ul>
-			<% colors.forEach(color=> { %>
-				<li id="<%= color.id %>"><span style="color:<%= color.name %>;">o<a href="/color/<%= color.id %>">
-							<%= color.name %>
-						</a></span>
-					<button class="delete">x</button>
-				</li>
-				<% }) %>
+	<!-- <a href="/add-color"><button>Add color</button></a> -->
+	<%- include('partials/add-color.ejs') -%>
 
-		</ul>
-		<%} else {%>
-			<p>No colors </p>
+		<%if(colors.length> 0){%>
+			<ul>
+				<% colors.forEach(color=> { %>
+					<li id="<%= color.id %>"><span style="color:<%= color.name %>;">o<a href="/color/<%= color.id %>">
+								<%= color.name %>
+							</a></span>
 
-			<%}%>
+						<form action="/update-color-submit" method="post">
+							<input type="text" value="<%= color.id %>" name="id" />
+							<input type="text" value="<%= color.name %>" name="name" placeholder="<%= color.name %>" />
+							<input type="submit" value="Update" />
+						</form>
+						<button class="edit">edit</button>
+						<button class="delete">x</button>
+					</li>
+					<% }) %>
+
+			</ul>
+			<%} else {%>
+				<p>No colors </p>
+
+				<%}%>
 
 
 
-				<%- include('partials/footer.ejs') -%>
+					<%- include('partials/footer.ejs') -%>
 
 
 
 
 
 
-					<script>
-						window.addEventListener("DOMContentLoaded", function () {
-							console.log(`loaded`)
+						<script>
+							window.addEventListener("DOMContentLoaded", function () {
+								console.log(`loaded`)
 
-							const clickHandler = (event) => {
-								console.log(`clicked`, event.currentTarget)
-								console.log(`clicked`, event.currentTarget.parentElement.id)
+								const clickHandler = (event) => {
+									console.log(`clicked`, event.currentTarget)
+									console.log(`clicked`, event.currentTarget.parentElement.id)
 
-								fetch("/delete-color", {
-									method: "post",
-									headers: {
-										Accept: "application/json",
-										"Content-Type": "application/json"
-									},
-									body: JSON.stringify({ id: event.currentTarget.parentElement.id })
-								}).then(res => {
+									fetch("/delete-color", {
+										method: "post",
+										headers: {
+											Accept: "application/json",
+											"Content-Type": "application/json"
+										},
+										body: JSON.stringify({ id: event.currentTarget.parentElement.id })
+									}).then(res => {
 
-									console.log(`deleted`,)
-									window.location.reload()
+										console.log(`deleted`,)
+										window.location.reload()
 
-								}).catch((err) => console.log("err", err))
+									}).catch((err) => console.log("err", err))
 
-							}
+								}
 
-							Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
-								btn.addEventListener("click", clickHandler, false)
+								Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
+									btn.addEventListener("click", clickHandler, false)
+
+								})
 
 							})
 
-						})
-
-					</script>
+						</script>
