@@ -3,51 +3,51 @@
 	<main>
 
 		<!-- <a href="/add-task"><button>Add task</button></a> -->
+		<%- include('partials/add-task.ejs') -%>
 
-
-		<%if(tasks.length> 0){%>
-			<ul>
-				<% tasks.forEach(task=> { %>
-					<li class="itemrow" id="<%= task.id %>">
-						<div>
-							<div>
-								<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
-								type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
-							</div>
+			<%if(tasks.length> 0){%>
+				<ul>
+					<% tasks.forEach(task=> { %>
+						<li class="itemrow" id="<%= task.id %>">
 							<div>
 								<div>
-									<div>
-										<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
-											<%=task.name %>
-										</label>
-										<a href="/task/<%= task.id %>">
-											i
-										</a>
-									</div>
-									<button class="edit">edit</button>
+									<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
+									type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
 								</div>
-
-								<form action="/update-task-submit" method="post">
+								<div>
 									<div>
-										<input type="text" value="<%= task.id %>" name="id" />
-										<input type="text" value="<%= task.name %>" name="name"
-											placeholder="<%= task.name %>" />
+										<div>
+											<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
+												<%=task.name %>
+											</label>
+											<a href="/task/<%= task.id %>">
+												i
+											</a>
+										</div>
+										<button class="edit">edit</button>
 									</div>
-									<input type="submit" value="Update" />
-								</form>
+
+									<form action="/update-task-submit" method="post">
+										<div>
+											<input type="text" value="<%= task.id %>" name="id" />
+											<input type="text" value="<%= task.name %>" name="name"
+												placeholder="<%= task.name %>" />
+										</div>
+										<input type="submit" value="Update" />
+									</form>
+								</div>
 							</div>
-						</div>
-						<div>
-							<button class="delete">x</button>
-						</div>
-					</li>
-					<% }) %>
+							<div>
+								<button class="delete">x</button>
+							</div>
+						</li>
+						<% }) %>
 
-			</ul>
-			<%} else {%>
-				<p>No tasks </p>
+				</ul>
+				<%} else {%>
+					<p>No tasks </p>
 
-				<%}%>
+					<%}%>
 
 	</main>
 
