@@ -46,58 +46,44 @@ router.get(`/`, function (req, res) {
 
 //render single color page
 router.get(`/color/:id`, function (req, res) {
-
 	const colorId = req.params.id
-	console.log(`parameters`, colorId)
 	const query = `SELECT * FROM colors WHERE id = ${colorId} `
 
 	dbConnection.query(query, (err, result) => {
-		console.log(`result`, result)
-
 		if (err) { throw err }
-
 		res.render("color", {
 			color: result[0]
 		})
 	})
 })
 
-// router.get(`/add-color`, function (req, res) {
-// 	res.render("add-color")
-// })
-
 router.post('/delete-color', function (req, res) {
-	console.log("req", req.body.id)
-
 	const query = `DELETE FROM colors WHERE id = ${req.body.id}`
+
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
 		}
-
 		res.writeHead(302)
 		res.end()
 	})
 })
 
 router.post(`/add-color-submit`, function (req, res) {
-
-	console.log("req BODY *********", req.body.checked)
 	const query = `INSERT INTO colors (name, checked) VALUES ("${req.body.name}", 0)`
+
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
 		}
-
 		res.writeHead(302, { Location: "/" })
 		res.end()
 	})
 })
 
 router.post(`/check-color`, function (req, res) {
-
-	console.log("req BODY *********", req.body.checked)
 	const query = `UPDATE colors SET checked = "${req.body.checked}" WHERE id = ${req.body.id}`
+
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
@@ -110,14 +96,12 @@ router.post(`/check-color`, function (req, res) {
 
 
 router.post('/update-color-submit', function (req, res) {
-	console.log("req", req.body.id)
-
 	const query = `UPDATE colors SET name = "${req.body.name}" WHERE id = ${req.body.id}`
+
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
 		}
-
 		res.writeHead(302, { Location: "/" })
 		res.end()
 	})
