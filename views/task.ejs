@@ -1,0 +1,16 @@
+<%- include('partials/header.ejs') -%>
+    <h1>task Profile</h1>
+    <a href="/"><button>Home</button></a>
+
+    <p>task name: <%= task.name %>
+    </p>
+    <p>task id: <%= task.id %>
+    </p>
+
+    <%if(task.checked==1){%>
+        <p>task status: Done</p>
+        <%} else {%>
+            <p>task status: Pendant</p>
+            <%}%>
+
+                <%- include('partials/footer.ejs') -%>

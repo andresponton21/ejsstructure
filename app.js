@@ -30,7 +30,7 @@ dbConnection.connect((err) => {
 
 //render home page
 router.get(`/`, function (req, res) {
-	const query = `SELECT * FROM colors ORDER BY id ASC`
+	const query = `SELECT * FROM tasks ORDER BY id ASC`
 
 
 	dbConnection.query(query, (err, result) => {
@@ -38,27 +38,27 @@ router.get(`/`, function (req, res) {
 
 		if (err) { throw err }
 
-		res.render("index", { colors: result })
+		res.render("index", { tasks: result })
 	})
 
 
 })
 
-//render single color page
-router.get(`/color/:id`, function (req, res) {
+//render single task page
+router.get(`/task/:id`, function (req, res) {
 	const colorId = req.params.id
-	const query = `SELECT * FROM colors WHERE id = ${colorId} `
+	const query = `SELECT * FROM tasks WHERE id = ${colorId} `
 
 	dbConnection.query(query, (err, result) => {
 		if (err) { throw err }
-		res.render("color", {
-			color: result[0]
+		res.render("task", {
+			task: result[0]
 		})
 	})
 })
 
-router.post('/delete-color', function (req, res) {
-	const query = `DELETE FROM colors WHERE id = ${req.body.id}`
+router.post('/delete-task', function (req, res) {
+	const query = `DELETE FROM tasks WHERE id = ${req.body.id}`
 
 	dbConnection.query(query, (err, result) => {
 		if (err) {
@@ -69,8 +69,8 @@ router.post('/delete-color', function (req, res) {
 	})
 })
 
-router.post(`/add-color-submit`, function (req, res) {
-	const query = `INSERT INTO colors (name, checked) VALUES ("${req.body.name}", 0)`
+router.post(`/add-task-submit`, function (req, res) {
+	const query = `INSERT INTO tasks (name, checked) VALUES ("${req.body.name}", 0)`
 
 	dbConnection.query(query, (err, result) => {
 		if (err) {
@@ -81,8 +81,8 @@ router.post(`/add-color-submit`, function (req, res) {
 	})
 })
 
-router.post(`/check-color`, function (req, res) {
-	const query = `UPDATE colors SET checked = "${req.body.checked}" WHERE id = ${req.body.id}`
+router.post(`/check-task`, function (req, res) {
+	const query = `UPDATE tasks SET checked = "${req.body.checked}" WHERE id = ${req.body.id}`
 
 	dbConnection.query(query, (err, result) => {
 		if (err) {
@@ -95,8 +95,8 @@ router.post(`/check-color`, function (req, res) {
 
 
 
-router.post('/update-color-submit', function (req, res) {
-	const query = `UPDATE colors SET name = "${req.body.name}" WHERE id = ${req.body.id}`
+router.post('/update-task-submit', function (req, res) {
+	const query = `UPDATE tasks SET name = "${req.body.name}" WHERE id = ${req.body.id}`
 
 	dbConnection.query(query, (err, result) => {
 		if (err) {

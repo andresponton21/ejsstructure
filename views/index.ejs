@@ -2,33 +2,33 @@
 
 	<h1>Home 2</h1>
 
-	<!-- <a href="/add-color"><button>Add color</button></a> -->
-	<%- include('partials/add-color.ejs') -%>
+	<!-- <a href="/add-task"><button>Add task</button></a> -->
+	<%- include('partials/add-task.ejs') -%>
 
-		<%if(colors.length> 0){%>
+		<%if(tasks.length> 0){%>
 			<ul>
-				<% colors.forEach(color=> { %>
-					<li id="<%= color.id %>">
-						<!-- <%= color.id %>
-							<%= color.name %>
-								<%= color.checked %>
+				<% tasks.forEach(task=> { %>
+					<li id="<%= task.id %>">
+						<!-- <%= task.id %>
+							<%= task.name %>
+								<%= task.checked %>
 
-									<%= (color.checked==1) ? 'true' : 'false' %> -->
+									<%= (task.checked==1) ? 'true' : 'false' %> -->
 
-						<input class="checkbox" <%=(color.checked==1) ? 'checked="true"' : '' %>
-						type="checkbox" name="<%=color.name %>" id="check-<%= color.id %>">
-								<label for="check-<%= color.id %>" style="color:<%=color.name %>;">
-									<%=color.name %>
+						<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
+						type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
+								<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
+									<%=task.name %>
 								</label>
 
-								<span><a href="/color/<%= color.id %>">
+								<span><a href="/task/<%= task.id %>">
 										i
 									</a></span>
 
-								<form action="/update-color-submit" method="post">
-									<input type="text" value="<%= color.id %>" name="id" />
-									<input type="text" value="<%= color.name %>" name="name"
-										placeholder="<%= color.name %>" />
+								<form action="/update-task-submit" method="post">
+									<input type="text" value="<%= task.id %>" name="id" />
+									<input type="text" value="<%= task.name %>" name="name"
+										placeholder="<%= task.name %>" />
 									<input type="submit" value="Update" />
 								</form>
 								<button class="edit">edit</button>
@@ -38,7 +38,7 @@
 
 			</ul>
 			<%} else {%>
-				<p>No colors </p>
+				<p>No tasks </p>
 
 				<%}%>
 
@@ -59,7 +59,7 @@
 									console.log(`clicked`, event.currentTarget)
 									console.log(`clicked`, event.currentTarget.parentElement.id)
 
-									fetch("/delete-color", {
+									fetch("/delete-task", {
 										method: "post",
 										headers: {
 											Accept: "application/json",
@@ -78,7 +78,7 @@
 								const checkHandler = (event) => {
 									let check = event.currentTarget.checked ? 1 : 0
 
-									fetch("/check-color", {
+									fetch("/check-task", {
 										method: "post",
 										headers: {
 											Accept: "application/json",
