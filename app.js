@@ -1,3 +1,5 @@
+
+// Import libraries
 const express = require("express")
 const path = require("path")
 const app = express()
@@ -26,7 +28,7 @@ dbConnection.connect((err) => {
 	console.log(`Connected to DB`)
 })
 
-//render index.ejs
+//render home page
 router.get(`/`, function (req, res) {
 	const query = `SELECT * FROM colors ORDER BY id ASC`
 
@@ -42,7 +44,7 @@ router.get(`/`, function (req, res) {
 
 })
 
-
+//render single color page
 router.get(`/color/:id`, function (req, res) {
 
 	const colorId = req.params.id
@@ -58,11 +60,27 @@ router.get(`/color/:id`, function (req, res) {
 			color: result[0]
 		})
 	})
-
-
-
-
 })
+
+router.get(`/add-color`, function (req, res) {
+
+	res.render("add-color")
+})
+router.post('/delete-color', function (req, res) {
+	console.log("req", req.body.id)
+
+	const query = `DELETE FROM colors WHERE id = ${req.body.id}`
+	dbConnection.query(query, (err, result) => {
+		if (err) {
+			throw err
+		}
+
+		res.writeHead(302)
+		res.end()
+	})
+})
+
+
 
 app.use(`/`, router)
 app.listen(config.serverPort, () => {

@@ -2,12 +2,61 @@
 
 	<h1>Home 2</h1>
 
-	<ul>
-		<% colors.forEach(color=> { %>
-			<li><a href="/color/<%= color.id %>">
-					<%= color.name %>
-			</li></a>
-			<% }) %>
+	<a href="/add-color"><button>Add color</button></a>
+	<%if(colors.length> 0){%>
+		<ul>
+			<% colors.forEach(color=> { %>
+				<li id="<%= color.id %>"><span style="color:<%= color.name %>;">o<a href="/color/<%= color.id %>">
+							<%= color.name %>
+						</a></span>
+					<button class="delete">x</button>
+				</li>
+				<% }) %>
 
-	</ul>
-	<%- include('partials/footer.ejs') -%>
+		</ul>
+		<%} else {%>
+			<p>No colors </p>
+
+			<%}%>
+
+
+
+				<%- include('partials/footer.ejs') -%>
+
+
+
+
+
+
+					<script>
+						window.addEventListener("DOMContentLoaded", function () {
+							console.log(`loaded`)
+
+							const clickHandler = (event) => {
+								console.log(`clicked`, event.currentTarget)
+								console.log(`clicked`, event.currentTarget.parentElement.id)
+
+								fetch("/delete-color", {
+									method: "post",
+									headers: {
+										Accept: "application/json",
+										"Content-Type": "application/json"
+									},
+									body: JSON.stringify({ id: event.currentTarget.parentElement.id })
+								}).then(res => {
+
+									console.log(`deleted`,)
+									window.location.reload()
+
+								}).catch((err) => console.log("err", err))
+
+							}
+
+							Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
+								btn.addEventListener("click", clickHandler, false)
+
+							})
+
+						})
+
+					</script>
