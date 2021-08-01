@@ -63,9 +63,24 @@ router.get(`/color/:id`, function (req, res) {
 })
 
 router.get(`/add-color`, function (req, res) {
-
 	res.render("add-color")
 })
+
+router.post(`/add-color-bubmit`, function (req, res) {
+	const query = `INSER INTO colors (name) VALUES (${req.body.name})`
+	dbConnection.query(query, (err, result) => {
+		if (err) {
+			throw err
+		}
+
+		res.writeHead(302)
+		res.end()
+	})
+})
+
+
+
+
 router.post('/delete-color', function (req, res) {
 	console.log("req", req.body.id)
 
