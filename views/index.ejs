@@ -8,31 +8,38 @@
 		<%if(tasks.length> 0){%>
 			<ul>
 				<% tasks.forEach(task=> { %>
-					<li id="<%= task.id %>">
-						<!-- <%= task.id %>
-							<%= task.name %>
-								<%= task.checked %>
-
-									<%= (task.checked==1) ? 'true' : 'false' %> -->
-
-						<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
-						type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
-								<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
-									<%=task.name %>
-								</label>
-
-								<span><a href="/task/<%= task.id %>">
-										i
-									</a></span>
+					<li class="itemrow" id="<%= task.id %>">
+						<div>
+							<div>
+								<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
+								type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
+							</div>
+							<div>
+								<div>
+									<div>
+										<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
+											<%=task.name %>
+										</label>
+										<a href="/task/<%= task.id %>">
+											i
+										</a>
+									</div>
+									<button class="edit">edit</button>
+								</div>
 
 								<form action="/update-task-submit" method="post">
-									<input type="text" value="<%= task.id %>" name="id" />
-									<input type="text" value="<%= task.name %>" name="name"
-										placeholder="<%= task.name %>" />
+									<div>
+										<input type="text" value="<%= task.id %>" name="id" />
+										<input type="text" value="<%= task.name %>" name="name"
+											placeholder="<%= task.name %>" />
+									</div>
 									<input type="submit" value="Update" />
 								</form>
-								<button class="edit">edit</button>
-								<button class="delete">x</button>
+							</div>
+						</div>
+						<div>
+							<button class="delete">x</button>
+						</div>
 					</li>
 					<% }) %>
 
@@ -57,7 +64,7 @@
 
 								const deleteHandler = (event) => {
 									console.log(`clicked`, event.currentTarget)
-									console.log(`clicked`, event.currentTarget.parentElement.id)
+									console.log(`clicked`, event.currentTarget.closest(".itemrow").id)
 
 									fetch("/delete-task", {
 										method: "post",
@@ -65,7 +72,7 @@
 											Accept: "application/json",
 											"Content-Type": "application/json"
 										},
-										body: JSON.stringify({ id: event.currentTarget.parentElement.id })
+										body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id })
 									}).then(res => {
 
 										console.log(`deleted`,)
@@ -84,7 +91,7 @@
 											Accept: "application/json",
 											"Content-Type": "application/json"
 										},
-										body: JSON.stringify({ id: event.currentTarget.parentElement.id, checked: check })
+										body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id, checked: check })
 									}).then(res => {
 										window.location.reload()
 									}).catch((err) => console.log("err", err))
