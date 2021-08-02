@@ -30,19 +30,25 @@ dbConnection.connect((err) => {
 
 //render home page
 router.get(`/`, function (req, res) {
-	const query = `SELECT * FROM tasks ORDER BY id ASC`
+	router.fLoadGrid(`ALL`, res)
+})
 
+
+
+
+router.get(`/:filterby`, function (req, res) {
+	const filter = req.params.filterby
+	router.fLoadGrid(filter, res)
+})
+
+router.fLoadGrid = function (filter, res) {
+	let query = (filter != `ALL`) ? `SELECT * FROM tasks WHERE checked = ${filter} ORDER BY id ASC` : `SELECT * FROM tasks ORDER BY id ASC`
 
 	dbConnection.query(query, (err, result) => {
-		console.log(`result`, result)
-
 		if (err) { throw err }
-
 		res.render("index", { tasks: result })
 	})
-
-
-})
+}
 
 //render single task page
 router.get(`/task/:id`, function (req, res) {

@@ -7,12 +7,13 @@ html, body {
 body {
 	min-height: 100vh;
   	margin:0; 
-	background: rgb(255, 234, 255);
+      background-color: rgb(71, 121, 121);
+	/* background: rgb(255, 234, 255);
 	background: linear-gradient(229deg, 
 	rgb(208, 163, 214) 0%, rgb(221, 215, 208) 47%, 
 	rgb(224, 212, 230) 65%);
 	background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-attachment: fixed; */
 
 }
 

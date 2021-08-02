@@ -5,51 +5,52 @@
 		<!-- <a href="/add-task"><button>Add task</button></a> -->
 		<%- include('partials/add-task.ejs') -%>
 
-			<%if(tasks.length> 0){%>
-				<ul class="ulTasks">
-					<% tasks.forEach(task=> { %>
-						<li class="itemrow" id="<%= task.id %>">
-							<div class="iteInfoContainer">
-								<div class="divCheck">
-									<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
-									type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
-								</div>
-								<div class="labelFormControls">
-									<div class="labelEdit inForm">
-										<div class="labelAnchor">
-
-
-
-											<label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:greenyellow;'
-											: '' %>" class="labelforCheck" for="check-<%= task.id %>">
-												<%=task.name %>
-											</label>
-											<a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
-										</div>
-										<button class="edit"></button>
+			<%- include('partials/orderfilter-task.ejs') -%>
+				<%if(tasks.length> 0){%>
+					<ul class="ulTasks">
+						<% tasks.forEach(task=> { %>
+							<li class="itemrow" id="<%= task.id %>">
+								<div class="iteInfoContainer">
+									<div class="divCheck">
+										<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
+										type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
 									</div>
+									<div class="labelFormControls">
+										<div class="labelEdit inForm">
+											<div class="labelAnchor">
 
-									<form class="hide upform" action="/update-task-submit" method="post">
-										<div class="inputIdName">
-											<input type="hidden" value="<%= task.id %>" name="id" />
-											<input class="editName" type="text" value="<%= task.name %>" name="name"
-												placeholder="<%= task.name %>" />
+
+
+												<label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:greenyellow;'
+											: '' %>" class="labelforCheck" for="check-<%= task.id %>">
+													<%=task.name %>
+												</label>
+												<a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
+											</div>
+											<button class="edit"></button>
 										</div>
-										<input class="inputUpdate" type="submit" value="" />
-									</form>
+
+										<form class="hide upform" action="/update-task-submit" method="post">
+											<div class="inputIdName">
+												<input type="hidden" value="<%= task.id %>" name="id" />
+												<input class="editName" type="text" value="<%= task.name %>" name="name"
+													placeholder="<%= task.name %>" />
+											</div>
+											<input class="inputUpdate" type="submit" value="" />
+										</form>
+									</div>
 								</div>
-							</div>
-							<div class="divDelete">
-								<button class="delete"></button>
-							</div>
-						</li>
-						<% }) %>
+								<div class="divDelete">
+									<button class="delete"></button>
+								</div>
+							</li>
+							<% }) %>
 
-				</ul>
-				<%} else {%>
-					<p>No tasks </p>
+					</ul>
+					<%} else {%>
+						<p>No tasks </p>
 
-					<%}%>
+						<%}%>
 
 	</main>
 
@@ -100,7 +101,43 @@
 
 				}
 
-				const editHandler = (event) => {
+
+				function filterHandler() {
+
+					console.log(`filter`)
+					// let filterby = "1"
+					// console.log(`filter`)
+
+					// fetch(`/?filterby=${filterby}`, {
+					// 	method: "GET",
+					// 	headers: {
+					// 		Accept: "application/json",
+					// 		"Content-Type": "application/json"
+					// 	}
+					// }).then(res => {
+					// 	// window.location.reload()
+					// }).catch((err) => console.log("err", err))
+
+
+					// fetch("/", {
+					// 	method: "post",
+					// 	headers: {
+					// 		Accept: "application/json",
+					// 		"Content-Type": "application/json"
+					// 	},
+					// 	body: JSON.stringify({ filter: filterby })
+					// }).then(res => {
+					// 	// window.location.reload()
+					// }).catch((err) => console.log("err", err))
+
+				}
+
+				function orderHandler() {
+					console.log(`order`)
+
+				}
+
+				const openEditForm = (event) => {
 					const labelEdit = event.currentTarget.closest(".itemrow").children[0].children[1].children[0]
 					const editForm = event.currentTarget.closest(".itemrow").children[0].children[1].children[1]
 					const inputEditName = event.currentTarget.closest(".itemrow").children[0].children[1].children[1].children[0].children[1]
@@ -134,12 +171,13 @@
 				})
 
 				Array.from(document.getElementsByClassName("edit")).forEach((btn) => {
-					btn.addEventListener("click", editHandler, false)
+					btn.addEventListener("click", openEditForm, false)
 				})
 
-
-
-
+				Array.from(document.getElementsByClassName("orderFilter")).map((btn) => {
+					btn.children[0].addEventListener("click", filterHandler, false)
+					btn.children[1].addEventListener("click", orderHandler, false)
+				})
 			})
 
 		</script>
