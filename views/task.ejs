@@ -1,16 +1,33 @@
 <%- include('partials/header.ejs') -%>
-    <h1>task Profile</h1>
-    <a href="/"><button>Home</button></a>
+    <main class="main">
 
-    <p>task name: <%= task.name %>
-    </p>
-    <p>task id: <%= task.id %>
-    </p>
+        <p class="crumbs"><a href="/">Home</a><span>&#187;</span><span>Task id:<%= task.id %></span></p>
 
-    <%if(task.checked==1){%>
-        <p>task status: Done</p>
-        <%} else {%>
-            <p>task status: Pendant</p>
-            <%}%>
+        <h1>Task profile</h1>
 
-                <%- include('partials/footer.ejs') -%>
+        <div class="profileWrap">
+            <div class="profileTags">
+                <p>Task name:
+                </p>
+                <p>Task id:
+                </p>
+                <p>Task status:
+                </p>
+            </div>
+
+            <div class="profileValues">
+                <p>
+                    <%= task.name %>
+                </p>
+                <p>
+                    <%= task.id %>
+
+                </p>
+                <p>
+                    <%=(task.checked==1) ? "Done" : "Pendant" %>
+                </p>
+            </div>
+
+        </div>
+    </main>
+    <%- include('partials/footer.ejs') -%>

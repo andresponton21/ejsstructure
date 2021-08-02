@@ -7,10 +7,10 @@ html, body {
 body {
 	min-height: 100vh;
   	margin:0; 
-	background: rgb(255, 232, 208);
+	background: rgb(255, 234, 255);
 	background: linear-gradient(229deg, 
-	rgb(214, 201, 163) 0%, rgb(238, 223, 207) 47%, 
-	rgb(223, 213, 185) 65%);
+	rgb(208, 163, 214) 0%, rgb(221, 215, 208) 47%, 
+	rgb(224, 212, 230) 65%);
 	background-repeat: no-repeat;
     background-attachment: fixed;
 
@@ -62,11 +62,11 @@ html{
     display: flex;
     justify-content: center;
     gap: var(--pad-gap);
-    padding: calc(var(--pad-gap)/2);
+    padding-top: calc(var(--pad-gap)*2);
 
 
-    border:0.2em solid yellowgreen;
-    background-color: blueviolet;
+    /* border:0.2em solid yellowgreen;
+    background-color: blueviolet; */
 }
 
 .logo{
@@ -83,13 +83,14 @@ html{
 
 .main{
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     flex-direction: column;
     gap: var(--pad-gap);
-    padding: calc(var(--pad-gap)/2);
+    padding:  calc(var(--pad-gap)/2);
+   
 
-    border:0.2em solid yellowgreen;
-    background-color: rgb(174, 100, 243);  
+    /* border:0.2em solid rgb(209, 109, 15);
+    background-color: rgb(126, 189, 145);   */
 }
 
 /* ::::::::::::::::::::::::::::::::::::::: */
@@ -100,10 +101,11 @@ html{
     display: flex;
     justify-content: space-between;
     gap: var(--pad-gap);
+    padding:calc(var(--pad-gap)) 0 ;
 
 
-    border:0.2em solid yellowgreen;
-    background-color: rgb(118, 61, 172);  
+    /* border:0.2em solid yellowgreen;
+    background-color: rgb(118, 61, 172);   */
 }
 
 .inputTask{
@@ -126,11 +128,11 @@ html{
 /* ::::::::::::::::::::::::::::::::::::::: */
 .ulTasks{
     display: grid;
-    gap: var(--pad-gap);
+    gap: calc(var(--pad-gap)/4);
     
 
-    border:0.2em solid yellowgreen;
-    background-color: rgb(190, 138, 238);  
+    /* border:0.2em solid yellowgreen;
+    background-color: rgb(138, 238, 155);   */
 }
 
 .itemrow{
@@ -138,9 +140,11 @@ html{
     justify-content: space-between;
     align-items: center;
     gap: calc(var(--pad-gap)/4);
+    padding: calc(var(--pad-gap)/2) ;
+
 
     border:0.02em solid yellowgreen;
-    background-color: rgb(152, 67, 231);  
+    background-color: rgb(194, 158, 200);  
 }
 
 .iteInfoContainer{
@@ -150,8 +154,8 @@ html{
     align-items: center;
     gap: calc(var(--pad-gap)/4);
 
-    border:0.02em solid yellowgreen;
-    background-color: rgb(67, 78, 231);  
+    /* border:0.02em solid yellowgreen;
+    background-color: rgb(67, 78, 231);   */
 }
 
 .divCheck, .checkbox{
@@ -168,8 +172,8 @@ html{
     align-items: center;
     
 
-    border:0.02em solid yellowgreen;
-    background-color: rgb(209, 209, 209); 
+    /* border:0.02em solid yellowgreen;
+    background-color: rgb(209, 209, 209);  */
 }
 
 .labelEdit, .editForm{
@@ -177,11 +181,13 @@ html{
     justify-content: space-between;
     align-items: center;
     gap: calc(var(--pad-gap)/8 );
+   
 }
 
 .labelEdit {
-    border:0.02em solid yellowgreen;
-    background-color: rgb(124, 136, 125); 
+
+    /* border:0.02em solid yellowgreen;
+    background-color: rgb(124, 136, 125);  */
 }
 
 .labelAnchor, .inputIdName{
@@ -195,14 +201,20 @@ html{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border:0.02em solid yellowgreen;
-    background-color: rgb(194, 158, 200); 
+    
+    /* border:0.02em solid yellowgreen;
+    background-color: rgb(194, 158, 200);  */
 }
 .labelforCheck{
     flex-shrink: 1;
-
+    height: fit-content;
     color: teal;
     font-weight: bold;
+   
+    padding: calc(var(--pad-gap)/2);
+    flex-grow: 1;
+
+    /* background-color: rgb(184, 184, 184); */
 }
 
 .itemLinkInfo{
@@ -222,8 +234,8 @@ html{
 
 .editForm{
 
-    border:0.02em solid yellowgreen;
-    background-color: rgb(129, 161, 131); 
+    /* border:0.02em solid yellowgreen;
+    background-color: rgb(129, 161, 131);  */
 
 }
 
@@ -232,10 +244,118 @@ html{
     background-color: rgb(170, 130, 164); 
 }
 
+.inputIdName:focus {
+    
+}
+
 .editName{
     flex-grow: 1;
     flex-shrink: 1;
     color: rgb(255, 250, 185);
     background-color: rgb(44, 44, 43);
+    padding: calc(var(--pad-gap)/2);
+    height: fit-content;
 }
 
+
+ /* 
+.footer {
+   position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+} */
+
+
+.crumbs{
+    display: flex;
+   gap: calc(var(--pad-gap)/2);
+   align-items: center;
+}
+
+.crumbs a{
+font-size: 1.5em;
+color: red;
+}
+
+.crumbs a{
+font-size: 1.5em;
+color: red;
+}
+
+.crumbs span:first-of-type{
+    font-size: 1.5em;
+    font-weight: bold;
+    }
+
+.crumbs span:last-of-type{
+    font-size: 0.9em;
+    
+    }    
+
+.profileWrap{
+display: flex;
+gap: calc(var(--pad-gap));
+padding: calc(var(--pad-gap)*2);
+width: fit-content;
+border-radius: 10%;
+
+border:0.02em solid yellowgreen;
+background-color: rgb(170, 130, 164); 
+}
+.profileTags, .profileValues{
+    display: grid;
+    gap: var(--pad-gap);
+}
+
+.profileTags p{
+    color:red;
+    border:0.02em solid blue;
+  
+} 
+
+.profileValues p{
+    color:rgb(157, 248, 225);
+    border:0.03em solid black; 
+} 
+
+@media screen and (min-width: 25em) {
+.labelEdit, .editForm, .itemrow {
+    
+    gap: calc(var(--pad-gap)/2);
+   
+}
+
+}
+
+@media screen and (min-width: 40em) {
+
+    .main, {
+        padding:calc(var(--pad-gap)) 0 ;
+    }
+}
+
+
+@media screen and (min-width: 45em) {
+    .addForm{
+        flex-grow: 1;
+        padding: calc(var(--pad-gap)) calc(var(--pad-gap)*8);
+    }
+} 
+
+@media screen and (min-width: 55em) {
+
+    .main{
+        width: auto;
+        max-width: 55em;
+        margin: 0 auto;
+    }
+
+    .labelEdit, .editForm, .itemrow {
+        gap: calc(var(--pad-gap));
+    }
+}
