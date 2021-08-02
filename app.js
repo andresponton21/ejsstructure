@@ -1,4 +1,3 @@
-
 // Import libraries
 const express = require("express")
 const path = require("path")
@@ -41,8 +40,17 @@ router.get(`/:filterby`, function (req, res) {
 	router.fLoadGrid(filter, res)
 })
 
-router.fLoadGrid = function (filter, res) {
-	let query = (filter != `ALL`) ? `SELECT * FROM tasks WHERE checked = ${filter} ORDER BY id ASC` : `SELECT * FROM tasks ORDER BY id ASC`
+router.fLoadGrid = function (filters, res) {
+	//let query = (filter != `ALL`) ? `SELECT * FROM tasks WHERE checked = ${filter} ORDER BY id ASC` : `SELECT * FROM tasks ORDER BY id ASC`
+	let query = `SELECT * FROM tasks`
+
+	if (filters != "ALL") {
+		query += ` WHERE checked = ${filters}`
+	}
+	query += ` ORDER BY id ASC`
+
+	console.log(query)
+	console.log(filters)
 
 	dbConnection.query(query, (err, result) => {
 		if (err) { throw err }
