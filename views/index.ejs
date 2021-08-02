@@ -1,43 +1,42 @@
 <%- include('partials/header.ejs') -%>
 
-	<main>
+	<main class="main">
 
 		<!-- <a href="/add-task"><button>Add task</button></a> -->
 		<%- include('partials/add-task.ejs') -%>
 
 			<%if(tasks.length> 0){%>
-				<ul>
+				<ul class="ulTasks">
 					<% tasks.forEach(task=> { %>
 						<li class="itemrow" id="<%= task.id %>">
-							<div>
-								<div>
+							<div class="iteInfoContainer">
+								<div class="divCheck">
 									<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
 									type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
 								</div>
-								<div>
-									<div>
-										<div>
-											<label for="check-<%= task.id %>" style="task:<%=task.name %>;">
+								<div class="labelFormControls">
+									<div class="labelEdit inForm">
+										<div class="labelAnchor">
+											<label class="labelforCheck" for="check-<%= task.id %>"
+												style="task:<%=task.name %>;">
 												<%=task.name %>
 											</label>
-											<a href="/task/<%= task.id %>">
-												i
-											</a>
+											<a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
 										</div>
-										<button class="edit">edit</button>
+										<button class="edit">e</button>
 									</div>
 
-									<form action="/update-task-submit" method="post">
-										<div>
-											<input type="text" value="<%= task.id %>" name="id" />
-											<input type="text" value="<%= task.name %>" name="name"
+									<form class="hide upform" action="/update-task-submit" method="post">
+										<div class="inputIdName">
+											<input type="hidden" value="<%= task.id %>" name="id" />
+											<input class="editName" type="text" value="<%= task.name %>" name="name"
 												placeholder="<%= task.name %>" />
 										</div>
-										<input type="submit" value="Update" />
+										<input class="inputUpdate" type="submit" value="u" />
 									</form>
 								</div>
 							</div>
-							<div>
+							<div class="divDelete">
 								<button class="delete">x</button>
 							</div>
 						</li>
@@ -98,6 +97,25 @@
 
 				}
 
+				const editHandler = (event) => {
+					const labelEdit = event.currentTarget.closest(".itemrow").children[0].children[1].children[0]
+					const editForm = event.currentTarget.closest(".itemrow").children[0].children[1].children[1]
+					Array.from(document.getElementsByClassName("upform")).forEach((form) => {
+						form.classList.remove("editForm")
+						form.classList.add("hide")
+					})
+
+					Array.from(document.getElementsByClassName("inForm")).forEach((form) => {
+						form.classList.add("labelEdit")
+						form.classList.remove("hide")
+					})
+
+					console.log(event.currentTarget)
+					labelEdit.classList.remove("labelEdit")
+					labelEdit.classList.add("hide")
+					editForm.classList.remove("hide")
+					editForm.classList.add("editForm")
+				}
 
 				Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
 					btn.addEventListener("click", deleteHandler, false)
@@ -106,6 +124,10 @@
 
 				Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
 					checkbox.addEventListener("click", checkHandler, false)
+				})
+
+				Array.from(document.getElementsByClassName("edit")).forEach((btn) => {
+					btn.addEventListener("click", editHandler, false)
 				})
 
 

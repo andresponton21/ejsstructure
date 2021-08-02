@@ -1,4 +1,241 @@
-body{
-    color:red;
-    background-color: rgb(236, 236, 236);
+/* :::::::::::::::::::::::::::RESETS :::::::::::::::::::::::::::::::::::::::: */
+html, body {
+	height: 100%;
+	box-sizing: border-box;
 }
+
+body {
+	min-height: 100vh;
+  	margin:0; 
+	background: rgb(255, 232, 208);
+	background: linear-gradient(229deg, 
+	rgb(214, 201, 163) 0%, rgb(238, 223, 207) 47%, 
+	rgb(223, 213, 185) 65%);
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+
+
+* {
+  font-size: 1em;
+  font-weight: 400;
+  text-decoration: none;
+  line-height: 1.2; 
+  margin: 0;
+  padding:0;  
+}
+
+ul, ol { 
+	list-style-type: none;
+}
+  
+img{
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	vertical-align: bottom;
+}
+
+/* ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: */
+
+/* ::::::::::::::::::::::::::::::VARIABLES :::::::::::::::::::::::::::::: */
+html{
+    --pad-gap:1em; /* paddings and gaps */  
+}
+	
+
+.hide{
+    display: none;
+}
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* HEADER */
+/* ::::::::::::::::::::::::::::::::::::::: */
+
+.topHeader{
+    display: flex;
+    justify-content: center;
+    gap: var(--pad-gap);
+    padding: calc(var(--pad-gap)/2);
+
+
+    border:0.2em solid yellowgreen;
+    background-color: blueviolet;
+}
+
+.logo{
+    border:0.2em solid yellowgreen;
+}
+
+.appName{
+    border:0.2em solid yellowgreen;
+}
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* MAIN */
+/* ::::::::::::::::::::::::::::::::::::::: */
+
+.main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: var(--pad-gap);
+    padding: calc(var(--pad-gap)/2);
+
+    border:0.2em solid yellowgreen;
+    background-color: rgb(174, 100, 243);  
+}
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* ADD FORM */
+/* ::::::::::::::::::::::::::::::::::::::: */
+
+.addForm{
+    display: flex;
+    justify-content: space-between;
+    gap: var(--pad-gap);
+
+
+    border:0.2em solid yellowgreen;
+    background-color: rgb(118, 61, 172);  
+}
+
+.inputTask{
+    flex-grow: 1;
+    flex-wrap: wrap;
+    padding-left: var(--pad-gap);
+
+
+    height: 2em;
+}
+
+.submitTask{
+
+    height: 2em;
+    width: 2em;
+}
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* CONTAINER FOR TASKS LIST */
+/* ::::::::::::::::::::::::::::::::::::::: */
+.ulTasks{
+    display: grid;
+    gap: var(--pad-gap);
+    
+
+    border:0.2em solid yellowgreen;
+    background-color: rgb(190, 138, 238);  
+}
+
+.itemrow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(var(--pad-gap)/4);
+
+    border:0.02em solid yellowgreen;
+    background-color: rgb(152, 67, 231);  
+}
+
+.iteInfoContainer{
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--pad-gap)/4);
+
+    border:0.02em solid yellowgreen;
+    background-color: rgb(67, 78, 231);  
+}
+
+.divCheck, .checkbox{
+    height:1em;
+    width: 1em;
+
+}
+
+
+.labelFormControls{
+    display: grid;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    
+
+    border:0.02em solid yellowgreen;
+    background-color: rgb(209, 209, 209); 
+}
+
+.labelEdit, .editForm{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(var(--pad-gap)/8 );
+}
+
+.labelEdit {
+    border:0.02em solid yellowgreen;
+    background-color: rgb(124, 136, 125); 
+}
+
+.labelAnchor, .inputIdName{
+    display: flex;
+    gap: var(--pad-gap);
+    flex-grow: 1;
+    flex-wrap: wrap;
+}
+
+.labelAnchor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border:0.02em solid yellowgreen;
+    background-color: rgb(194, 158, 200); 
+}
+.labelforCheck{
+    flex-shrink: 1;
+
+    color: teal;
+    font-weight: bold;
+}
+
+.itemLinkInfo{
+    background-color: rgba(200, 108, 108, 0.507);
+    border-radius: 50%;
+    height: 1.2em;
+    width: 1.2em;
+    text-align: center;
+    padding-top: .15em;
+    font-weight: bold;
+}
+
+.edit, .inputUpdate, .delete, .divDelete{
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.editForm{
+
+    border:0.02em solid yellowgreen;
+    background-color: rgb(129, 161, 131); 
+
+}
+
+.inputIdName {
+    border:0.02em solid yellowgreen;
+    background-color: rgb(170, 130, 164); 
+}
+
+.editName{
+    flex-grow: 1;
+    flex-shrink: 1;
+    color: rgb(255, 250, 185);
+    background-color: rgb(44, 44, 43);
+}
+
