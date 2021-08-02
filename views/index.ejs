@@ -26,7 +26,7 @@
 											</label>
 											<a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
 										</div>
-										<button class="edit">e</button>
+										<button class="edit"></button>
 									</div>
 
 									<form class="hide upform" action="/update-task-submit" method="post">
@@ -35,12 +35,12 @@
 											<input class="editName" type="text" value="<%= task.name %>" name="name"
 												placeholder="<%= task.name %>" />
 										</div>
-										<input class="inputUpdate" type="submit" value="u" />
+										<input class="inputUpdate" type="submit" value="" />
 									</form>
 								</div>
 							</div>
 							<div class="divDelete">
-								<button class="delete">x</button>
+								<button class="delete"></button>
 							</div>
 						</li>
 						<% }) %>

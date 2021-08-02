@@ -232,6 +232,31 @@ html{
     width: 1.2em;
 }
 
+.delete{
+    background-image: url("https://www.pikpng.com/pngl/m/159-1591301_pc-icon-to-delete-comments-delete-icon-svg.png");
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: .9em 0.9em;
+  background-position: center center;
+}
+
+.edit{
+    background-image: url("https://img.icons8.com/fluency-systems-filled/452/edit.png");
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: .9em 0.9em;
+  background-position: center center;
+}
+
+.inputUpdate{
+    background-image: url("https://miro.medium.com/max/1400/0*vdUY_dRmKtBvgYaM.jpeg");
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 1.2em 0.9em;
+  background-position: center center;
+}
+
+
 .editForm{
 
     /* border:0.02em solid yellowgreen;
@@ -258,17 +283,10 @@ html{
 }
 
 
- /* 
+
 .footer {
-   position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: red;
-    color: white;
-    text-align: center;
-    padding-top: 50px;
-} */
+    padding-top:var(--pad-gap);
+}
 
 
 .crumbs{
@@ -327,6 +345,7 @@ background-color: rgb(170, 130, 164);
 .labelEdit, .editForm, .itemrow {
     
     gap: calc(var(--pad-gap)/2);
+    
    
 }
 
