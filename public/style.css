@@ -124,6 +124,22 @@ html{
     width: 2em;
 }
 
+
+
+/* ::::::::::::::::::::::::::::::::::::::::::  */
+/* FILTERS */
+/* ::::::::::::::::::::::::::::::::::::::::::  */
+
+.btnFilterActive{
+    background-color: rgb(99, 255, 8);
+    opacity: 1;
+}
+
+.btnFilterInactive{
+    background-color: rgb(226, 101, 18);
+    opacity: 0.3;
+}
+
 /* ::::::::::::::::::::::::::::::::::::::: */
 /* CONTAINER FOR TASKS LIST */
 /* ::::::::::::::::::::::::::::::::::::::: */

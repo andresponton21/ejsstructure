@@ -1,0 +1,10 @@
+<div class="filters">
+        <button class="<%=(check.status==`ALL`) ? 'filter btnFilterActive' : 'filter btnFilterInactive' %>"><a
+                        href="/">ALL</a> </button>
+        <button class="<%=(check.status==`1`) ? 'filter btnFilterActive' : 'filter btnFilterInactive' %>"><a
+                        href="/1">DONE</a></button>
+        <button class="<%=(check.status==`0`) ? 'filter btnFilterActive' : 'filter btnFilterInactive' %>"><a
+                        href="/0">PENDING</a></button>
+</div>
+
+<%= ostatus.status %>

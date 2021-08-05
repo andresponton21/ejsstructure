@@ -1,183 +1,163 @@
 <%- include('partials/header.ejs') -%>
 
-	<main class="main">
+  <!-- Content for HOME PAGE	 -->
+  <main class="main">
 
-		<!-- <a href="/add-task"><button>Add task</button></a> -->
-		<%- include('partials/add-task.ejs') -%>
-
-			<%- include('partials/orderfilter-task.ejs') -%>
-				<%if(tasks.length> 0){%>
-					<ul class="ulTasks">
-						<% tasks.forEach(task=> { %>
-							<li class="itemrow" id="<%= task.id %>">
-								<div class="iteInfoContainer">
-									<div class="divCheck">
-										<input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
-										type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
-									</div>
-									<div class="labelFormControls">
-										<div class="labelEdit inForm">
-											<div class="labelAnchor">
+    <!-- Include a form to add a task -->
+    <%- include('partials/add-task.ejs') -%>
 
 
 
-												<label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:greenyellow;'
+      <!-- Include filters buttons -->
+      <%- include('partials/filterTask.ejs' , {ostatus: check}) -%>
+
+
+        <!-- Creater dynamic elements when the task array it not empty -->
+        <%if(tasks.length> 0){%>
+          <!-- Use <ul> as a root container to pupulate it with the task items -->
+          <ul class="ulTasks">
+
+            <!-- Create dynamic elements for each task that exists  -->
+            <% tasks.forEach(task=> { %>
+              <!-- Item row -->
+              <li class="itemrow" id="<%= task.id %>">
+
+                <!-- Item information Container -->
+                <div class="iteInfoContainer">
+
+                  <!-- Checkbox -->
+                  <div class="divCheck">
+                    <input class="checkbox" <%=(task.checked==1) ? 'checked="true"' : '' %>
+                    type="checkbox" name="<%=task.name %>" id="check-<%= task.id %>">
+                  </div>
+
+
+                  <div class="labelFormControls">
+                    <!-- container for a label(for checkbox) and edit button -->
+                    <div class="labelEdit inForm">
+                      <div class="labelAnchor">
+                        <!-- Laber for checkbox -->
+                        <label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:blue;'
 											: '' %>" class="labelforCheck" for="check-<%= task.id %>">
-													<%=task.name %>
-												</label>
-												<a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
-											</div>
-											<button class="edit"></button>
-										</div>
+                          <%=task.name %>
+                        </label>
+                        <a class="itemLinkInfo" href="/task/<%= task.id %>">i</a>
+                      </div>
+                      <button class="edit"></button>
+                    </div>
 
-										<form class="hide upform" action="/update-task-submit" method="post">
-											<div class="inputIdName">
-												<input type="hidden" value="<%= task.id %>" name="id" />
-												<input class="editName" type="text" value="<%= task.name %>" name="name"
-													placeholder="<%= task.name %>" />
-											</div>
-											<input class="inputUpdate" type="submit" value="" />
-										</form>
-									</div>
-								</div>
-								<div class="divDelete">
-									<button class="delete"></button>
-								</div>
-							</li>
-							<% }) %>
+                    <form class="hide upform" action="/update-task-submit" method="post">
+                      <div class="inputIdName">
+                        <input type="hidden" value="<%= task.id %>" name="id" />
+                        <input class="editName" type="text" value="<%= task.name %>" name="name"
+                          placeholder="<%= task.name %>" />
+                      </div>
+                      <input class="inputUpdate" type="submit" value="" />
+                    </form>
+                  </div>
 
-					</ul>
-					<%} else {%>
-						<p>No tasks </p>
+                </div> <!-- Item information Container -->
 
-						<%}%>
-
-	</main>
-
-	<%- include('partials/footer.ejs') -%>
+                <div class="divDelete">
+                  <button class="delete"></button>
+                </div>
 
 
+              </li> <!-- Item row -->
+              <% }) %>
+
+          </ul>
+          <%} else {%>
+            <p>No tasks </p>
+
+            <%}%>
+
+  </main>
+
+  <%- include('partials/footer.ejs') -%>
 
 
 
 
-		<script>
-			window.addEventListener("DOMContentLoaded", function () {
-				console.log(`loaded`)
-
-				const deleteHandler = (event) => {
-					console.log(`clicked`, event.currentTarget)
-					console.log(`clicked`, event.currentTarget.closest(".itemrow").id)
-
-					fetch("/delete-task", {
-						method: "post",
-						headers: {
-							Accept: "application/json",
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id })
-					}).then(res => {
-
-						console.log(`deleted`,)
-						window.location.reload()
-
-					}).catch((err) => console.log("err", err))
-
-				}
-
-				const checkHandler = (event) => {
-					let check = event.currentTarget.checked ? 1 : 0
-
-					fetch("/check-task", {
-						method: "post",
-						headers: {
-							Accept: "application/json",
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id, checked: check })
-					}).then(res => {
-						window.location.reload()
-					}).catch((err) => console.log("err", err))
-
-				}
 
 
-				function filterHandler() {
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        console.log(`loaded`)
 
-					console.log(`filter`)
-					// let filterby = "1"
-					// console.log(`filter`)
+        const deleteHandler = (event) => {
+          console.log(`clicked`, event.currentTarget)
+          console.log(`clicked`, event.currentTarget.closest(".itemrow").id)
 
-					// fetch(`/?filterby=${filterby}`, {
-					// 	method: "GET",
-					// 	headers: {
-					// 		Accept: "application/json",
-					// 		"Content-Type": "application/json"
-					// 	}
-					// }).then(res => {
-					// 	// window.location.reload()
-					// }).catch((err) => console.log("err", err))
+          fetch("/delete-task", {
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id })
+          }).then(res => {
+
+            console.log(`deleted`,)
+            window.location.reload()
+
+          }).catch((err) => console.log("err", err))
+
+        }
+
+        const checkHandler = (event) => {
+          let check = event.currentTarget.checked ? 1 : 0
+
+          fetch("/check-task", {
+            method: "post",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: event.currentTarget.closest(".itemrow").id, checked: check })
+          }).then(res => {
+            window.location.reload()
+          }).catch((err) => console.log("err", err))
+
+        }
+
+        const openEditForm = (event) => {
+          const labelEdit = event.currentTarget.closest(".itemrow").children[0].children[1].children[0]
+          const editForm = event.currentTarget.closest(".itemrow").children[0].children[1].children[1]
+          const inputEditName = event.currentTarget.closest(".itemrow").children[0].children[1].children[1].children[0].children[1]
+          console.log(event.currentTarget.closest(".itemrow").children[0].children[1].children[1].children[0].children[1])
+          Array.from(document.getElementsByClassName("upform")).forEach((form) => {
+            form.classList.remove("editForm")
+            form.classList.add("hide")
+          })
+
+          Array.from(document.getElementsByClassName("inForm")).forEach((form) => {
+            form.classList.add("labelEdit")
+            form.classList.remove("hide")
+          })
+
+          console.log(event.currentTarget)
+          labelEdit.classList.remove("labelEdit")
+          labelEdit.classList.add("hide")
+          editForm.classList.remove("hide")
+          editForm.classList.add("editForm")
+          inputEditName.focus()
+          inputEditName.style.outline = 0
+        }
 
 
-					// fetch("/", {
-					// 	method: "post",
-					// 	headers: {
-					// 		Accept: "application/json",
-					// 		"Content-Type": "application/json"
-					// 	},
-					// 	body: JSON.stringify({ filter: filterby })
-					// }).then(res => {
-					// 	// window.location.reload()
-					// }).catch((err) => console.log("err", err))
 
-				}
+        Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
+          btn.addEventListener("click", deleteHandler, false)
+        })
 
-				function orderHandler() {
-					console.log(`order`)
+        Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
+          checkbox.addEventListener("click", checkHandler, false)
+        })
 
-				}
+        Array.from(document.getElementsByClassName("edit")).forEach((btn) => {
+          btn.addEventListener("click", openEditForm, false)
+        })
+      })
 
-				const openEditForm = (event) => {
-					const labelEdit = event.currentTarget.closest(".itemrow").children[0].children[1].children[0]
-					const editForm = event.currentTarget.closest(".itemrow").children[0].children[1].children[1]
-					const inputEditName = event.currentTarget.closest(".itemrow").children[0].children[1].children[1].children[0].children[1]
-					console.log(event.currentTarget.closest(".itemrow").children[0].children[1].children[1].children[0].children[1])
-					Array.from(document.getElementsByClassName("upform")).forEach((form) => {
-						form.classList.remove("editForm")
-						form.classList.add("hide")
-					})
-
-					Array.from(document.getElementsByClassName("inForm")).forEach((form) => {
-						form.classList.add("labelEdit")
-						form.classList.remove("hide")
-					})
-
-					console.log(event.currentTarget)
-					labelEdit.classList.remove("labelEdit")
-					labelEdit.classList.add("hide")
-					editForm.classList.remove("hide")
-					editForm.classList.add("editForm")
-					inputEditName.focus()
-					inputEditName.style.outline = 0
-				}
-
-				Array.from(document.getElementsByClassName("delete")).forEach((btn) => {
-					btn.addEventListener("click", deleteHandler, false)
-
-				})
-
-				Array.from(document.getElementsByClassName("checkbox")).forEach((checkbox) => {
-					checkbox.addEventListener("click", checkHandler, false)
-				})
-
-				Array.from(document.getElementsByClassName("edit")).forEach((btn) => {
-					btn.addEventListener("click", openEditForm, false)
-				})
-
-				Array.from(document.getElementsByClassName("orderFilter")).map((btn) => {
-					btn.children[0].addEventListener("click", filterHandler, false)
-					btn.children[1].addEventListener("click", orderHandler, false)
-				})
-			})
-
-		</script>
+    </script>

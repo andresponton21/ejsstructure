@@ -9,60 +9,66 @@ const config = require("./config")
 require('dotenv').config()
 
 
-
+// Add middleware 
 app.use(express.static("public"))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 // Use ejs as a view engine
 app.set("view engine", "ejs")
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
-
+// Instantiate DB Conection
 const dbConnection = mysql.createConnection(config.dbConfig)
 dbConnection.connect((err) => {
 	if (err) {
 		throw err
 	}
-
 	console.log(`Connected to DB`)
 })
 
-//render home page
+
+//Call function to render HOME PAGE without filters
 router.get(`/`, function (req, res) {
-	router.fLoadGrid(`ALL`, res)
+	// Send ALL as request   (without filters)
+	router.loadHOME(`ALL`, res)
 })
 
-
-
-
+//Call function to render HOME PAGE with filters
 router.get(`/:filterby`, function (req, res) {
 	const filter = req.params.filterby
-	router.fLoadGrid(filter, res)
+	// Send filter as request  (with filters)
+	router.loadHOME(filter, res)
 })
 
-router.fLoadGrid = function (filters, res) {
-	//let query = (filter != `ALL`) ? `SELECT * FROM tasks WHERE checked = ${filter} ORDER BY id ASC` : `SELECT * FROM tasks ORDER BY id ASC`
-	let query = `SELECT * FROM tasks`
+//Render HOME PAGE
+router.loadHOME = function (filters, res) {
+	const oStatus = {
+		status: filters
+	}
 
+	// Instantiate query with our without FILTERS
+
+	let query = `SELECT * FROM tasks`
 	if (filters != "ALL") {
 		query += ` WHERE checked = ${filters}`
 	}
 	query += ` ORDER BY id ASC`
 
-	console.log(query)
-	console.log(filters)
-
+	// Consult database and render HOME PAGE
 	dbConnection.query(query, (err, result) => {
 		if (err) { throw err }
-		res.render("index", { tasks: result })
+		console.log(oStatus.status)
+		res.render("index", { tasks: result, check: oStatus })
+
 	})
 }
 
-//render single task page
+//render  TASK PROFILE
 router.get(`/task/:id`, function (req, res) {
-	const colorId = req.params.id
-	const query = `SELECT * FROM tasks WHERE id = ${colorId} `
-
+	// Instantiate query filtering by ID
+	const taskId = req.params.id
+	const query = `SELECT * FROM tasks WHERE id = ${taskId} `
+	// Consult database and render TASK PROFILE
 	dbConnection.query(query, (err, result) => {
 		if (err) { throw err }
 		res.render("task", {
@@ -71,9 +77,9 @@ router.get(`/task/:id`, function (req, res) {
 	})
 })
 
+//Delete a task by id
 router.post('/delete-task', function (req, res) {
 	const query = `DELETE FROM tasks WHERE id = ${req.body.id}`
-
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
@@ -83,21 +89,22 @@ router.post('/delete-task', function (req, res) {
 	})
 })
 
+//Add a task
 router.post(`/add-task-submit`, function (req, res) {
 	const query = `INSERT INTO tasks (name, checked) VALUES ("${req.body.name}", 0)`
-
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
 		}
+		// Consult database,  send response header to the request.
 		res.writeHead(302, { Location: "/" })
 		res.end()
 	})
 })
 
+//Update the checked status of the task
 router.post(`/check-task`, function (req, res) {
 	const query = `UPDATE tasks SET checked = "${req.body.checked}" WHERE id = ${req.body.id}`
-
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
@@ -108,10 +115,9 @@ router.post(`/check-task`, function (req, res) {
 })
 
 
-
+//Update the name of the task
 router.post('/update-task-submit', function (req, res) {
 	const query = `UPDATE tasks SET name = "${req.body.name}" WHERE id = ${req.body.id}`
-
 	dbConnection.query(query, (err, result) => {
 		if (err) {
 			throw err
@@ -121,7 +127,7 @@ router.post('/update-task-submit', function (req, res) {
 	})
 })
 
-
+// Run the app on port defined on config (config\index.js)
 app.use(`/`, router)
 app.listen(config.serverPort, () => {
 	console.log(`express server at 8080`)
