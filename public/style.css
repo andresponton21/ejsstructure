@@ -55,6 +55,12 @@ html{
     display: none;
 }
 
+/* ==========================================
+=========================================
+HOME PAGE
+==========================================
+========================================= */
+
 /* ::::::::::::::::::::::::::::::::::::::: */
 /* HEADER */
 /* ::::::::::::::::::::::::::::::::::::::: */
@@ -78,10 +84,10 @@ html{
     border:0.2em solid yellowgreen;
 }
 
-/* ::::::::::::::::::::::::::::::::::::::: */
-/* MAIN */
-/* ::::::::::::::::::::::::::::::::::::::: */
 
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* MAIN PAGE CONTAINER*/
+/* ::::::::::::::::::::::::::::::::::::::: */
 .main{
     display: flex;
     /* justify-content: center; */
@@ -94,8 +100,9 @@ html{
     background-color: rgb(126, 189, 145);   */
 }
 
+
 /* ::::::::::::::::::::::::::::::::::::::: */
-/* ADD FORM */
+/* ADD TASK FORM */
 /* ::::::::::::::::::::::::::::::::::::::: */
 
 .addForm{
@@ -127,22 +134,42 @@ html{
 
 
 /* ::::::::::::::::::::::::::::::::::::::::::  */
-/* FILTERS */
+/* FILTER */
 /* ::::::::::::::::::::::::::::::::::::::::::  */
 
-.btnFilterActive{
-    background-color: rgb(99, 255, 8);
-    opacity: 1;
+/* Container for filter buttons */
+.filters{
+    display: flex;
+    gap: calc(var(--pad-gap)/2);
 }
 
-.btnFilterInactive{
-    background-color: rgb(226, 101, 18);
-    opacity: 0.3;
+/* All the anchors */
+.filter{
+    border-radius:20% 20% 0 0;
+    padding: calc(var(--pad-gap)/1.5);
+    
 }
+
+/* Anchor that was clicked */
+.filterActive{
+    background-color: rgb(177, 8, 255);
+    opacity: 1;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+/* Anchor that were not clicked */
+.filterInactive{
+    background-color: rgb(165, 165, 165);
+    opacity: 0.5;
+    color: rgb(188, 236, 255);
+}
+
 
 /* ::::::::::::::::::::::::::::::::::::::: */
 /* CONTAINER FOR TASKS LIST */
 /* ::::::::::::::::::::::::::::::::::::::: */
+/* <!-- root container to pupulate it with the task items --> */
 .ulTasks{
     display: grid;
     gap: calc(var(--pad-gap)/4);
@@ -152,6 +179,9 @@ html{
     background-color: rgb(138, 238, 155);   */
 }
 
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* Item row */
+/* ::::::::::::::::::::::::::::::::::::::: */
 .itemrow{
     display: flex;
     justify-content: space-between;
@@ -164,6 +194,7 @@ html{
     background-color: rgb(194, 158, 200);  
 }
 
+/* Item information Container  */
 .iteInfoContainer{
     display: flex;
     flex-grow: 1;
@@ -175,13 +206,16 @@ html{
     background-color: rgb(67, 78, 231);   */
 }
 
+/* Checkbox container and Checkbox */
 .divCheck, .checkbox{
     height:1em;
     width: 1em;
-
 }
 
 
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* labelFormControls */
+/* ::::::::::::::::::::::::::::::::::::::: */
 .labelFormControls{
     display: grid;
     flex-grow: 1;
@@ -193,6 +227,7 @@ html{
     background-color: rgb(209, 209, 209);  */
 }
 
+/* Information container / form to update the name */
 .labelEdit, .editForm{
     display: flex;
     justify-content: space-between;
@@ -201,6 +236,7 @@ html{
    
 }
 
+/*  Information container */
 .labelEdit {
 
     /* border:0.02em solid yellowgreen;
@@ -214,6 +250,8 @@ html{
     flex-wrap: wrap;
 }
 
+
+
 .labelAnchor{
     display: flex;
     justify-content: space-between;
@@ -222,6 +260,8 @@ html{
     /* border:0.02em solid yellowgreen;
     background-color: rgb(194, 158, 200);  */
 }
+
+/* Laber for checkbox  */
 .labelforCheck{
     flex-shrink: 1;
     height: fit-content;
@@ -234,6 +274,8 @@ html{
     /* background-color: rgb(184, 184, 184); */
 }
 
+
+/* Link to TASK PROFILE PAGE */
 .itemLinkInfo{
     background-color: rgba(200, 108, 108, 0.507);
     border-radius: 50%;
@@ -244,17 +286,12 @@ html{
     font-weight: bold;
 }
 
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* COLLECTION OF BUTTOS */
+/* ::::::::::::::::::::::::::::::::::::::: */
 .edit, .inputUpdate, .delete, .divDelete{
     height: 1.2em;
     width: 1.2em;
-}
-
-.delete{
-    background-image: url("https://www.pikpng.com/pngl/m/159-1591301_pc-icon-to-delete-comments-delete-icon-svg.png");
-    background-repeat: no-repeat;
-    background-color: white;
-    background-size: .9em 0.9em;
-  background-position: center center;
 }
 
 .edit{
@@ -273,7 +310,18 @@ html{
   background-position: center center;
 }
 
+/*  Button to delet a task*/
+.delete{
+    background-image: url("https://www.pikpng.com/pngl/m/159-1591301_pc-icon-to-delete-comments-delete-icon-svg.png");
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: .9em 0.9em;
+  background-position: center center;
+}
 
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* FORM TO UPDATE THE NAME OS THE TASK */
+/* ::::::::::::::::::::::::::::::::::::::: */
 .editForm{
 
     /* border:0.02em solid yellowgreen;
@@ -281,15 +329,13 @@ html{
 
 }
 
+/* id editName */
 .inputIdName {
     border:0.02em solid yellowgreen;
     background-color: rgb(170, 130, 164); 
 }
 
-.inputIdName:focus {
-    
-}
-
+/* input editName */
 .editName{
     flex-grow: 1;
     flex-shrink: 1;
@@ -299,38 +345,60 @@ html{
     height: fit-content;
 }
 
-
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* FOOTER HOME PAGE */
+/* ::::::::::::::::::::::::::::::::::::::: */
 
 .footer {
     padding-top:var(--pad-gap);
 }
 
+/* ==========================================
+=========================================
+TASK PROFILE PAGE
+==========================================
+========================================= */
 
+
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* CRUMBS: Link to go back to HOME PAGE */
+/* ::::::::::::::::::::::::::::::::::::::: */
 .crumbs{
     display: flex;
    gap: calc(var(--pad-gap)/2);
    align-items: center;
 }
 
+/* link to home page */
 .crumbs a{
 font-size: 1.5em;
 color: red;
 }
 
-.crumbs a{
-font-size: 1.5em;
-color: red;
-}
-
+/* symbol */
 .crumbs span:first-of-type{
     font-size: 1.5em;
     font-weight: bold;
+    color: yellowgreen;
     }
 
+    /* task id */
 .crumbs span:last-of-type{
     font-size: 0.9em;
+    color: rgb(223, 147, 253);
     
     }    
+
+    /* Heading of TASK PROFILE PAGE */
+.profileHeading{
+color: red;
+}
+  
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* Task profile informatio */
+/* ::::::::::::::::::::::::::::::::::::::: */
 
 .profileWrap{
 display: flex;
@@ -342,6 +410,11 @@ border-radius: 10%;
 border:0.02em solid yellowgreen;
 background-color: rgb(170, 130, 164); 
 }
+
+/* ::::::::::::::::::::::::::::::::::::::: */
+/* Tags  / information of the task  */
+/* ::::::::::::::::::::::::::::::::::::::: */
+
 .profileTags, .profileValues{
     display: grid;
     gap: var(--pad-gap);
@@ -350,7 +423,6 @@ background-color: rgb(170, 130, 164);
 .profileTags p{
     color:red;
     border:0.02em solid blue;
-  
 } 
 
 .profileValues p{
@@ -358,25 +430,22 @@ background-color: rgb(170, 130, 164);
     border:0.03em solid black; 
 } 
 
+
+/* ==========================================
+=========================================
+MEDIA QUERIES
+==========================================
+========================================= */
+
+
 @media screen and (min-width: 25em) {
-.labelEdit, .editForm, .itemrow {
-    
-    gap: calc(var(--pad-gap)/2);
-    
-   
-}
-
-}
-
-@media screen and (min-width: 40em) {
-
-    .main, {
-        padding:calc(var(--pad-gap)) 0 ;
-    }
+/*  Information container / form to update the name / item row*/
+.labelEdit, .editForm, .itemrow { gap: calc(var(--pad-gap)/2);}
 }
 
 
 @media screen and (min-width: 45em) {
+/* ADD TASK FORM */
     .addForm{
         flex-grow: 1;
         padding: calc(var(--pad-gap)) calc(var(--pad-gap)*8);
@@ -384,14 +453,13 @@ background-color: rgb(170, 130, 164);
 } 
 
 @media screen and (min-width: 55em) {
-
+    /* MAIN PAGE CONTAINER*/
     .main{
         width: auto;
         max-width: 55em;
         margin: 0 auto;
     }
 
-    .labelEdit, .editForm, .itemrow {
-        gap: calc(var(--pad-gap));
-    }
+    /*  Information container / form to update the name / item row*/
+    .labelEdit, .editForm, .itemrow {gap: calc(var(--pad-gap));}
 }

@@ -42,24 +42,21 @@ router.get(`/:filterby`, function (req, res) {
 
 //Render HOME PAGE
 router.loadHOME = function (filters, res) {
+	//Storage the filters in an object
 	const oStatus = {
 		status: filters
 	}
-
 	// Instantiate query with our without FILTERS
-
 	let query = `SELECT * FROM tasks`
 	if (filters != "ALL") {
 		query += ` WHERE checked = ${filters}`
 	}
 	query += ` ORDER BY id ASC`
-
 	// Consult database and render HOME PAGE
 	dbConnection.query(query, (err, result) => {
 		if (err) { throw err }
-		console.log(oStatus.status)
+		//Send the result of the consult  and the filters
 		res.render("index", { tasks: result, check: oStatus })
-
 	})
 }
 
