@@ -2,6 +2,7 @@
 
   <!-- Content for HOME PAGE	 -->
   <main class="main">
+    <h1 class="appName">TO DO LIST</h1>
 
     <!-- Include a form to add a task -->
     <%- include('partials/add-task.ejs') -%>
@@ -38,7 +39,7 @@
                       <div class="labelAnchor">
                         <!-- Laber for checkbox -->
                         <!-- Add the style to the label when the checkbox is checked-->
-                        <label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:blue;'
+                        <label style="<%=(task.checked==1) ? 'text-decoration: line-through; color:blue; opacity: 0.5;'
 											: '' %>" class="labelforCheck" for="check-<%= task.id %>">
                           <%=task.name %>
                         </label>

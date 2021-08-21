@@ -1,11 +1,11 @@
 {
-  "name": "daniel-rubi-app",
+  "name": "daniel-rubi-andres-app",
   "version": "1.0.0",
   "description": "assigment",
   "main": "app.js",
   "scripts": {
-    "dev": "SET NODE_ENV=development & nodemon app.js",
-    "prod": "SET NODE_ENV=production & nodemon app.js"
+    "dev": "NODE_ENV=development nodemon app.js",
+    "prod": "NODE_ENV=production nodemon app.js"
   },
   "author": "",
   "license": "ISC",

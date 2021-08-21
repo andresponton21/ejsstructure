@@ -1,10 +1,9 @@
-
-require('dotenv').config({ path: `.env.${process.env.NODE_ENV.trim()}` })
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` })
 
 const config = {}
 config.serverPort = process.env.SERVER_PORT
 
-console.log(`environment==>`, process.env.NODE_ENV.trim())
+console.log(`environment==>`, process.env.NODE_ENV)
 console.log(`server port==>`, process.env.SERVER_PORT)
 
 
